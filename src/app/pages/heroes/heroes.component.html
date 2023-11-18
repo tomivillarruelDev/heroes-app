@@ -1,0 +1,66 @@
+<h1 class="display-3">Listado de Héroes</h1>
+<hr>
+
+
+<div class="row">
+    <div class="col text-end">
+        <button class="btn btn-primary"
+                routerLink="/heroe/new">
+            <i class="fa fa-plus"></i>
+            Agregar
+        </button>
+    </div>
+</div>
+
+
+<table class="table my-3 animate__animated animate__fadeIn animate__faster"
+        *ngIf=" !loading && heroes.length > 0 ">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Poder</th>
+        <th scope="col">Vivo</th>
+        <th scope="col">Herramientas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor=" let heroe of heroes; let i = index ">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ heroe.name }}</td>
+        <td>{{ heroe.power }}</td>
+        <td>
+            <span class="badge bg-success" *ngIf=" heroe.status ">Vivo</span>
+            <span class="badge bg-danger" *ngIf=" !heroe.status ">Muerto</span>
+        </td>
+        <td>
+            <button type="button" class="btn btn-info me-1"
+                    [routerLink]="['/heroe', heroe.id]">
+                <i class="fa fa-pen"></i>
+            </button>
+            <button type="button" class="btn btn-danger"
+                    (click)=" deleteHeroe( heroe, i ) ">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-info text-center mt-3 animate__animated animate__fadeIn animate__faster" 
+     *ngIf=" loading ">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor...
+    </p>
+</div>
+<div class="alert alert-danger text-center mt-3 animate__animated animate__fadeIn animate__faster"
+     *ngIf=" !loading && heroes.length === 0 ">
+    <h4 class="alert-heading">No hay registros de heroes</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>

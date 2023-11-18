@@ -1,0 +1,73 @@
+<h1>Héroe</h1>
+<hr>
+
+<div class="row text-end">
+    <div class="col">
+        <button class="btn btn-danger"
+                routerLink="/heroes">
+            <i class="fa fa-arrow-left"></i>
+            Regresar
+        </button>
+    </div>
+</div>
+
+<div class="row animate__animated animate__fadeIn animate__faster">
+    <div class="col">
+
+        <form method="POST"
+              class="animate__animated animate__fadeIn animate__faster"
+              *ngIf="form"
+              [formGroup]="form"
+              (ngSubmit)="save()">
+
+            <div class="form-group my-3">
+                <label for="id">Firebase ID</label>
+                <input type="text" name="id" class="form-control" placeholder="Firebase ID"
+                        formControlName="id">
+                <small class="text muted text-secondary">
+                    Este campo es autogenerado por Firebase
+                </small>
+            </div>
+
+            <div class="form-group my-3">
+                <label for="name">Nombre del héroe</label>
+                <input type="text" name="name" class="form-control" placeholder="Nombre del héroe"
+                        formControlName="name">
+            </div>
+
+            <div class="form-group my-3">
+                <label for="power">Poder</label>
+                <input type="text" name="power" class="form-control" placeholder="Poder"
+                        formControlName="power">
+            </div>
+
+            <div class="form-group my-3">
+                <label for="status">Estado</label>
+                <br>
+                <button class="btn btn-outline-success w-50" type="button"
+                        *ngIf="heroe.status"
+                        (click)=" heroe.status = false ">
+                    <i class="fa fa-smile-wink"></i>
+                    Vivo
+                </button>
+                <button class="btn btn-outline-danger w-50" type="button"
+                        *ngIf="!heroe.status"
+                        (click)=" heroe.status = true ">
+                    <i class="fa fa-dizzy"></i>
+                    Muerto
+                </button>
+
+            </div>
+
+            <hr>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary w-25">
+                    <i class="fa fa-save"></i>
+                    Guardar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
