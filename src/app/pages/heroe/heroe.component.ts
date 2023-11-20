@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { HeroeModel } from 'src/app/models/heroe.model';
+import { HeroModel } from 'src/app/models/heroe.model';
 import { HeroesService } from 'src/app/services/heroes.service';
 
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ export class HeroeComponent implements OnInit {
 
   form!: FormGroup;
 
-  heroe = new HeroeModel();
+  heroe = new HeroModel();
 
   constructor(  private fb: FormBuilder,
                 private activatedRoute: ActivatedRoute,
@@ -83,7 +83,7 @@ export class HeroeComponent implements OnInit {
   private async getHeroe ( id: string ): Promise<void> {
       
       try {
-        const resp: HeroeModel = await this.heroeService.getHeroe(id);
+        const resp: HeroModel = await this.heroeService.getHeroe(id);
         this.heroe = resp;
         this.heroe.id = id;
         console.log('salio todo bien el get',this.heroe);
@@ -93,7 +93,7 @@ export class HeroeComponent implements OnInit {
     
   }
 
-  private async updateHeroe( heroe: HeroeModel): Promise<void> {
+  private async updateHeroe( heroe: HeroModel): Promise<void> {
 
     try {
       console.log('update heroe');
@@ -103,11 +103,11 @@ export class HeroeComponent implements OnInit {
     }
   }
 
-  private async postHeroe( heroe: HeroeModel ): Promise<void> {
+  private async postHeroe( heroe: HeroModel ): Promise<void> {
 
     try {
       console.log('datos heroe post ', heroe);
-      const resp = await this.heroeService.createHeroe(heroe);
+      const resp = await this.heroeService.createHero(heroe);
       this.heroe.id = resp.name;
       this.form.get('id')?.setValue(this.heroe.id);
     } catch (error) {
@@ -125,7 +125,7 @@ export class HeroeComponent implements OnInit {
       status: [this.heroe.status]
     });
     this.form.get('id')?.disable();
-    this.form.valueChanges.subscribe( (data: HeroeModel) => {
+    this.form.valueChanges.subscribe( (data: HeroModel) => {
 
       if ( this.heroe.id ){
         data = {...data, id: this.heroe.id};

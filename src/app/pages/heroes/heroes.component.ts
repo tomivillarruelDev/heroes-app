@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { HeroeModel } from 'src/app/models/heroe.model';
+import { HeroModel } from 'src/app/models/heroe.model';
 import { HeroesService } from 'src/app/services/heroes.service';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes: HeroeModel[] = [];
+  heroes: HeroModel[] = [];
 
   loading: boolean = false;
 
@@ -25,20 +25,20 @@ export class HeroesComponent implements OnInit {
     this.loading = false;
   }
 
-  public async deleteHeroe( heroe: HeroeModel, i: number ): Promise<void> {
+  public async deleteHeroe( heroe: HeroModel, i: number ): Promise<void> {
+
+    const response = await Swal.fire({
+      title: '¿Está seguro?',
+      text: `Está seguro que desea borrar a ${ heroe.name }`,
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true
+    });
+    if(response.value){
+      this.heroes = this.heroes.filter( heroItem => heroItem.id !== heroe.id );
+      await this.heroesService.deleteHeroe( heroe.id! );
       
-      Swal.fire({
-        title: '¿Está seguro?',
-        text: `Está seguro que desea borrar a ${ heroe.name }`,
-        icon: 'question',
-        showConfirmButton: true,
-        showCancelButton: true
-      }).then( async resp => { 
-        if ( resp.value ) { 
-          this.heroes.splice(i, 1);
-          await this.heroesService.deleteHeroe( heroe.id! );
-        }
-      });
+    }
   }
 
 }
