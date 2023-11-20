@@ -6,13 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './pages/heroes/heroes.component';
-import { HeroeComponent } from './pages/heroe/heroe.component';
+import { HeroComponent } from './pages/hero/hero.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesComponent,
-    HeroeComponent
+    HeroComponent
   ],
   imports: [
     BrowserModule,

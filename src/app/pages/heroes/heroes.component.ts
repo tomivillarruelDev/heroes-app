@@ -1,13 +1,12 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { HeroModel } from 'src/app/models/heroe.model';
+import { HeroModel } from 'src/app/models/hero.model';
 import { HeroesService } from 'src/app/services/heroes.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  templateUrl: './heroes.component.html'
 })
 export class HeroesComponent implements OnInit {
 
@@ -25,18 +24,18 @@ export class HeroesComponent implements OnInit {
     this.loading = false;
   }
 
-  public async deleteHeroe( heroe: HeroModel, i: number ): Promise<void> {
+  public async deleteHero( hero: HeroModel, i: number ): Promise<void> {
 
     const response = await Swal.fire({
       title: '¿Está seguro?',
-      text: `Está seguro que desea borrar a ${ heroe.name }`,
+      text: `Está seguro que desea borrar a ${ hero.name }`,
       icon: 'question',
       showConfirmButton: true,
       showCancelButton: true
     });
     if(response.value){
-      this.heroes = this.heroes.filter( heroItem => heroItem.id !== heroe.id );
-      await this.heroesService.deleteHeroe( heroe.id! );
+      this.heroes = this.heroes.filter( heroItem => heroItem.id !== hero.id );
+      await this.heroesService.deleteHero( hero.id! );
       
     }
   }

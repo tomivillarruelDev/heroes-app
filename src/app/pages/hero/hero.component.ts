@@ -2,39 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { HeroModel } from 'src/app/models/heroe.model';
+import { HeroModel } from 'src/app/models/hero.model';
 import { HeroesService } from 'src/app/services/heroes.service';
 
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-heroe',
-  templateUrl: './heroe.component.html'
+  selector: 'app-hero',
+  templateUrl: './hero.component.html'
 })
-export class HeroeComponent implements OnInit {
+export class HeroComponent implements OnInit {
 
   form!: FormGroup;
 
-  heroe = new HeroModel();
+  hero = new HeroModel();
 
   constructor(  private fb: FormBuilder,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private heroeService: HeroesService ) {}
+                private heroesService: HeroesService ) {}
 
   async ngOnInit(): Promise<void> {
 
     const id: string = this.activatedRoute.snapshot.paramMap.get('id')!;
 
     if ( id !== 'new' ){
-      await this.getHeroe(id);
+      await this.getHero(id);
     }
 
     this.createForm();
   }
 
   public async save(): Promise<void> {
-    console.log('heroe', this.heroe);
+    console.log('heroe', this.hero);
     if (this.form.invalid){
       Swal.fire({
         title: 'Formulario inválido',
@@ -54,24 +54,24 @@ export class HeroeComponent implements OnInit {
 
     let request: Promise<void>;
 
-    if ( this.heroe.id ){
-      request =  this.updateHeroe(this.heroe);
+    if ( this.hero.id ){
+      request =  this.updateHero(this.hero);
       
     } else {
-      request =  this.postHeroe(this.heroe);
+      request =  this.postHero(this.hero);
     }  
 
     try {
       await request;
       Swal.fire({
-        title: this.heroe.name,
+        title: this.hero.name,
         text: 'Se actualizó correctamente',
         icon: 'success'
       });
-      this.router.navigateByUrl('/heroes');
+      this.router.navigateByUrl('/heros');
     } catch (error) {
       Swal.fire({
-        title: this.heroe.name,
+        title: this.hero.name,
         text: 'No se pudo actualizar',
         icon: 'error'
       });
@@ -80,36 +80,36 @@ export class HeroeComponent implements OnInit {
 
   }
 
-  private async getHeroe ( id: string ): Promise<void> {
+  private async getHero ( id: string ): Promise<void> {
       
       try {
-        const resp: HeroModel = await this.heroeService.getHeroe(id);
-        this.heroe = resp;
-        this.heroe.id = id;
-        console.log('salio todo bien el get',this.heroe);
+        const resp: HeroModel = await this.heroesService.getHero(id);
+        this.hero = resp;
+        this.hero.id = id;
+        console.log('salio todo bien el get',this.hero);
       } catch (error) {
         console.log('get error', error);
       }
     
   }
 
-  private async updateHeroe( heroe: HeroModel): Promise<void> {
+  private async updateHero( hero: HeroModel): Promise<void> {
 
     try {
-      console.log('update heroe');
-      const resp = await this.heroeService.updateHeroe(heroe);
+      console.log('update hero');
+      const resp = await this.heroesService.updateHero(hero);
     } catch (error) {
       console.log(error);
     }
   }
 
-  private async postHeroe( heroe: HeroModel ): Promise<void> {
+  private async postHero( hero: HeroModel ): Promise<void> {
 
     try {
-      console.log('datos heroe post ', heroe);
-      const resp = await this.heroeService.createHero(heroe);
-      this.heroe.id = resp.name;
-      this.form.get('id')?.setValue(this.heroe.id);
+      console.log('datos hero post ', hero);
+      const resp = await this.heroesService.createHero(hero);
+      this.hero.id = resp.name;
+      this.form.get('id')?.setValue(this.hero.id);
     } catch (error) {
       console.log(error);
     }
@@ -119,19 +119,19 @@ export class HeroeComponent implements OnInit {
 
   
     this.form = this.fb.group({
-      id: [ this.heroe.id, Validators.required  ],
-      name: [this.heroe.name, [ Validators.required, Validators.minLength(3) ]],
-      power: [this.heroe.power],
-      status: [this.heroe.status]
+      id: [ this.hero.id, Validators.required  ],
+      name: [this.hero.name, [ Validators.required, Validators.minLength(3) ]],
+      power: [this.hero.power],
+      status: [this.hero.status]
     });
     this.form.get('id')?.disable();
     this.form.valueChanges.subscribe( (data: HeroModel) => {
 
-      if ( this.heroe.id ){
-        data = {...data, id: this.heroe.id};
+      if ( this.hero.id ){
+        data = {...data, id: this.hero.id};
         console.log('data if', data);
       }
-      this.heroe = data;
+      this.hero = data;
     });
   
   }

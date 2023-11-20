@@ -45,14 +45,14 @@
                 <label for="status">Estado</label>
                 <br>
                 <button class="btn btn-outline-success w-50" type="button"
-                        *ngIf="heroe.status"
-                        (click)=" heroe.status = false ">
+                        *ngIf="hero.status"
+                        (click)=" hero.status = false ">
                     <i class="fa fa-smile-wink"></i>
                     Vivo
                 </button>
                 <button class="btn btn-outline-danger w-50" type="button"
-                        *ngIf="!heroe.status"
-                        (click)=" heroe.status = true ">
+                        *ngIf="!hero.status"
+                        (click)=" hero.status = true ">
                     <i class="fa fa-dizzy"></i>
                     Muerto
                 </button>

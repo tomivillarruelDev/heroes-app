@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HeroModel } from '../models/heroe.model';
+import { HeroModel } from '../models/hero.model';
 import { firstValueFrom, map } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class HeroesService {
 
   }
 
-  public async updateHeroe( heroe: HeroModel ): Promise<HeroModel> {
+  public async updateHero( heroe: HeroModel ): Promise<HeroModel> {
 
   
     const { id: _, ...heroeTemp } = heroe;
@@ -28,13 +28,13 @@ export class HeroesService {
     return resp;
   }
 
-  public async deleteHeroe( id: string ): Promise<void> {
+  public async deleteHero( id: string ): Promise<void> {
 
     const resp = await firstValueFrom( this.http.delete<void>(`${ this.url }/heroes/${ id }.json`) );
     return resp;
   }
 
-  public async getHeroe ( id: string ): Promise<HeroModel> {
+  public async getHero ( id: string ): Promise<HeroModel> {
 
     const resp = await firstValueFrom( this.http.get<HeroModel>(`${ this.url }/heroes/${ id }.json`) );
     return resp;

@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col text-end">
         <button class="btn btn-primary"
-                routerLink="/heroe/new">
+                routerLink="/hero/new">
             <i class="fa fa-plus"></i>
             Agregar
         </button>
@@ -25,21 +25,21 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor=" let heroe of heroes; let i = index ">
+      <tr *ngFor=" let hero of heroes; let i = index ">
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ heroe.name }}</td>
-        <td>{{ heroe.power }}</td>
+        <td>{{ hero.name }}</td>
+        <td>{{ hero.power }}</td>
         <td>
-            <span class="badge bg-success" *ngIf=" heroe.status ">Vivo</span>
-            <span class="badge bg-danger" *ngIf=" !heroe.status ">Muerto</span>
+            <span class="badge bg-success" *ngIf=" hero.status ">Vivo</span>
+            <span class="badge bg-danger" *ngIf=" !hero.status ">Muerto</span>
         </td>
         <td>
             <button type="button" class="btn btn-info me-1"
-                    [routerLink]="['/heroe', heroe.id]">
+                    [routerLink]="['/hero', hero.id]">
                 <i class="fa fa-pen"></i>
             </button>
             <button type="button" class="btn btn-danger"
-                    (click)=" deleteHeroe( heroe, i ) ">
+                    (click)=" deleteHero( hero, i ) ">
                 <i class="fa fa-trash"></i>
             </button>
         </td>
